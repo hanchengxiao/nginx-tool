@@ -48,7 +48,7 @@
 // 自动加载默认配置 
 NginxConfig config = NginxConfigLoader.load();
 // 查找指定server块 
-Block serverBlock = config.getChildByType(ParamType.SERVER) .getChildByName("example.com");
+Block serverBlock = config.getChildByName("example.com");
 // 修改监听端口 
 serverBlock.set("listen", Arrays.asList("8080"));
 // 添加新location配置
