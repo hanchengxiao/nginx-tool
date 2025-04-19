@@ -5,12 +5,10 @@ import com.ohan.tool.nginx.block.NginxConfig;
 import com.ohan.tool.nginx.constants.FileConstants;
 import com.ohan.tool.nginx.exception.EditParamException;
 import com.ohan.tool.nginx.type.ServerConfigKey;
-import com.sun.istack.internal.NotNull;
 
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 
 /**
  * Nginx配置文件解析器，负责将文本配置转换为结构化的NginxConfig对象
@@ -105,7 +103,10 @@ public class NginxParser {
      * 2. 合并连续多个空格为单个
      * 3. 保留必要分隔空格
      */
-    public static String formatLine(@NotNull String line) {
+    public static String formatLine(String line) {
+        if (line == null) {
+            return "";
+        }
         char[] charArray = line.toCharArray();
         StringBuilder sb = new StringBuilder();
         boolean pass = true;
