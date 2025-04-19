@@ -7,6 +7,42 @@
     <groupId>com.ohan.tool</groupId>
     <artifactId>nginx-tool</artifactId>
     <version>0.1.0</version>
+    <packaging>jar</packaging>
+
+    <name>nginx-tool</name>
+    <description>nginx-tool</description>
+    <url>https://github.com/hanchengxiao/nginx-tool</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>hanchengxiao</name>
+            <email>305773778@qq.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/hanchengxiao/nginx-tool.git</connection>
+        <developerConnection>scm:git:ssh://github.com/hanchengxiao/nginx-tool.git</developerConnection>
+        <url>https://github.com/hanchengxiao/nginx-tool</url>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>com.ohan.tool</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>com.ohan.tool</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
