@@ -4,7 +4,6 @@ import com.ohan.tool.nginx.block.Block;
 import com.ohan.tool.nginx.block.NginxConfig;
 import com.ohan.tool.nginx.constants.FileConstants;
 import com.ohan.tool.nginx.exception.EditParamException;
-import com.ohan.tool.nginx.type.ParamType;
 import com.ohan.tool.nginx.type.ServerConfigKey;
 import com.sun.istack.internal.NotNull;
 
@@ -18,10 +17,9 @@ import java.util.Vector;
  * 通过维护节点层级关系构建配置树，支持server/location等块的嵌套解析
  */
 public class NginxParser {
-    private final NginxConfig config = new NginxConfig();
+    private final NginxConfig config = new NginxConfig(-1);
     private Block nowNode = config;
     private final Map<Block/*child*/, Block/*parent*/> nodeMap = new HashMap<>();
-    private final Vector<String> cacheVector = new Vector<>();
 
     /**
      * 获取解析完成的Nginx配置对象
@@ -76,27 +74,20 @@ public class NginxParser {
                     break;
                 }
                 case FileConstants.BRACE_LEFT_CHAR: {
-                    // 创建新配置块
                     String paramStr = formatLine.substring(0, blockStartIndex);
                     String[] paramArr = paramStr.split(FileConstants.SPACE);
-                    ParamType paramType = ParamType.of(paramArr[0]);
-                    if (paramType == null) {
-                        throw new ParseException("unknown nginx key,please check and try again" + paramArr[0], -1);
-                    }
-                    Block block = paramType.createBlock();
-                    nowNode.addChild(block);
-                    // 处理location块的特殊命名逻辑
+                    Block block = nowNode.newChild();
+                    block.setKey(paramArr[0]);
+                    block.setHasBlockBody(true);
                     if (paramArr.length > 1) {
-                        if (paramType == ParamType.LOCATION) {
-                            block.setName(formatLine(paramStr.replaceFirst(paramArr[0], "")));
-                        }
+                        block.setName(formatLine(paramStr.replaceFirst(paramArr[0], "")));
+                        block.setOutputName(true);
                     }
                     nodeMap.put(block, nowNode);
                     nowNode = block;
                     break;
                 }
                 case FileConstants.BRACE_RIGHT_CHAR: {
-                    // 回退到父级配置块
                     nowNode = nodeMap.get(nowNode);
                     break;
                 }

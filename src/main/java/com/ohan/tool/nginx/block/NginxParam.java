@@ -1,7 +1,6 @@
 package com.ohan.tool.nginx.block;
 
 import com.ohan.tool.nginx.constants.FileConstants;
-import com.ohan.tool.nginx.type.ParamType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,37 +11,8 @@ import java.util.List;
  * <p>用于构建和操作Nginx配置中的参数条目，支持链式调用
  */
 public class NginxParam {
-    private final ParamType type;
     private String key;
     private List<String> values = new ArrayList<>();
-
-    /**
-     * 构造Nginx参数对象
-     *
-     * @param type 参数类型枚举，决定参数在nginx配置中的行为特征
-     */
-    public NginxParam(ParamType type) {
-        this.type = type;
-    }
-
-    /**
-     * 创建Nginx参数对象的工厂方法
-     *
-     * @param type 参数类型枚举
-     * @return 新创建的NginxParam实例
-     */
-    public static NginxParam of(ParamType type) {
-        return new NginxParam(type);
-    }
-
-    /**
-     * 获取参数类型
-     *
-     * @return 当前参数的类型枚举值
-     */
-    public ParamType type() {
-        return type;
-    }
 
     /**
      * 获取参数键名
