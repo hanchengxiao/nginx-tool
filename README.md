@@ -38,7 +38,7 @@
 <dependency>
     <groupId>com.ohan.tool</groupId>
     <artifactId>nginx-tool</artifactId>
-    <version>1.0.0</version>
+    <version>0.1.0</version>
 </dependency>
 ~~~
 
